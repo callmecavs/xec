@@ -1,0 +1,36 @@
+{
+  "name":        "xecute.js",
+  "version":     "0.0.1",
+  "description": "",
+  "homepage":    "",
+  "main":        "dist/xecute.min.js",
+  "jsnext:main": "src/xecute.js",
+
+  "author":  "",
+  "license": "",
+
+  "repository": {
+    "type": "git",
+    "url":  ""
+  },
+  "bugs": {
+    "url": ""
+  },
+
+  "keywords": [
+
+  ],
+
+  "devDependencies": {
+    "babel-preset-es2015-rollup": "*",
+    "browser-sync":               "*",
+    "del":                        "*",
+    "gulp":                       "*",
+    "node-notifier":              "*",
+    "rollup":                     "*",
+    "rollup-plugin-babel":        "*",
+    "rollup-plugin-commonjs":     "*",
+    "rollup-plugin-node-resolve": "*",
+    "rollup-plugin-uglify":       "*"
+  }
+}
