@@ -1,7 +1,7 @@
 /*!
- * xec 0.0.1 - 
- * Copyright (c) 2016  - 
- * License: 
+ * xec 0.0.1 - An async script loader, for the browser, built on Promises.
+ * Copyright (c) 2016 Michael Cavalea - https://github.com/callmecavs/xec
+ * License: MIT
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :

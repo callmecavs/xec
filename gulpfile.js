@@ -32,7 +32,7 @@ gulp.task('clean', () => del('dist/**/*.js', 'dist/**/*.map'))
 const attribution =
 `/*!
  * xec ${ json.version } - ${ json.description }
- * Copyright (c) ${ new Date().getFullYear() } ${ json.author } - ${ json.homepage }
+ * Copyright (c) ${ new Date().getFullYear() } ${ json.author.name } - https://github.com/${ json.repository }
  * License: ${ json.license }
  */
 `
