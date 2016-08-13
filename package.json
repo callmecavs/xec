@@ -1,10 +1,10 @@
 {
-  "name":        "xecute.js",
+  "name":        "xec",
   "version":     "0.0.1",
   "description": "",
   "homepage":    "",
-  "main":        "dist/xecute.min.js",
-  "jsnext:main": "src/xecute.js",
+  "main":        "dist/xec.min.js",
+  "jsnext:main": "src/xec.js",
 
   "author":  "",
   "license": "",

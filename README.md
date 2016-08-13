@@ -1,17 +1,19 @@
-# xecute
+# xec
 
-A modern async script loader, built on Promises.
+An async script loader, for the browser, built on Promises.
 
 ## Install
 
 ```
-npm i xecute --save
+npm i xec --save
 ```
 
 ## Usage
 
 ```
-xecute('path/to/file.js')
+import xec from 'xec'
+
+xec('path/to/file.js')
   .then(() => console.log('Loaded and executed successfully!'))
   .catch(() => console.log('Something went wrong.'))
 ```

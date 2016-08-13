@@ -31,7 +31,7 @@ gulp.task('clean', () => del('dist/**/*.js', 'dist/**/*.map'))
 
 const attribution =
 `/*!
- * Xecute.js ${ json.version } - ${ json.description }
+ * xec ${ json.version } - ${ json.description }
  * Copyright (c) ${ new Date().getFullYear() } ${ json.author } - ${ json.homepage }
  * License: ${ json.license }
  */
@@ -40,7 +40,7 @@ const attribution =
 // js
 
 const read = {
-  entry: 'src/xecute.js',
+  entry: 'src/xec.js',
   sourceMap: true,
   plugins: [
     babel({ exclude: 'node_modules/**' }),
@@ -51,7 +51,7 @@ const read = {
 const write = {
   format: 'umd',
   exports: 'default',
-  moduleName: 'xecute',
+  moduleName: 'xec',
   sourceMap: true
 }
 
@@ -63,14 +63,16 @@ gulp.task('js', () => {
       const files = bundle.generate(write)
 
       // cache path to JS dist file
-      const dist = 'dist/xecute.min.js'
+      const dist = 'dist/xec.min.js'
 
       // write the attribution
       fs.writeFileSync(dist, attribution)
 
+      console.log(files)
+
       // write the JS and sourcemap
       fs.appendFileSync(dist, files.code)
-      fs.writeFileSync('dist/maps/xecute.min.js.map', files.map.toString())
+      fs.writeFileSync('dist/maps/xec.min.js.map', files.map.toString())
     })
 })
 
