@@ -39,14 +39,31 @@ const attribution =
 
 // js
 
-const read = {
+const base = {
   entry: 'src/xec.js',
-  sourceMap: true,
-  plugins: [
-    babel({ exclude: 'node_modules/**' }),
-    uglify()
-  ]
+  sourceMap: true
 }
+
+const normal =  Object.assign(
+  {},
+  base,
+  {
+    plugins: [
+      babel({ exclude: 'node_modules/**' })
+    ]
+  }
+)
+
+const minified = Object.assign(
+  {},
+  base,
+  {
+    plugins: [
+      babel({ exclude: 'node_modules/**' }),
+      uglify()
+    ]
+  }
+)
 
 const write = {
   format: 'umd',
@@ -56,23 +73,28 @@ const write = {
 }
 
 gulp.task('js', () => {
-  return rollup
-    .rollup(read)
-    .then(bundle => {
-      // generate the bundle
-      const files = bundle.generate(write)
+  return Promise
+    .all([
+      rollup.rollup(normal),
+      rollup.rollup(minified)
+    ])
+    .then(results => {
+      const files = results.map(res => res.generate(write))
 
-      // cache path to JS dist file
-      const dist = 'dist/xec.min.js'
+      // cache path to JS dist files
+      const normal = 'dist/xec.js'
+      const minified = 'dist/xec.min.js'
 
-      // write the attribution
-      fs.writeFileSync(dist, attribution)
+      // write attributions
+      fs.writeFileSync(normal, attribution)
+      fs.writeFileSync(minified, attribution)
 
-      console.log(files)
+      // write the sourcemap
+      fs.writeFileSync('dist/maps/xec.js.map', files[0].map.toString())
 
-      // write the JS and sourcemap
-      fs.appendFileSync(dist, files.code)
-      fs.writeFileSync('dist/maps/xec.min.js.map', files.map.toString())
+      // write JS files
+      fs.appendFileSync(normal, files[0].code)
+      fs.appendFileSync(minified, files[1].code)
     })
 })
 
