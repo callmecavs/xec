@@ -14,16 +14,9 @@
       // create the script tag
       var tag = document.createElement('script');
 
-      // remove event listeners, resolve or reject the Promise
-      var done = function done(func) {
-        tag.onerror = null;
-        tag.onload = null;
-        func();
-      };
-
       // add error and load event listeners
-      tag.onerror = done(reject);
-      tag.onload = done(resolve);
+      tag.onerror = reject;
+      tag.onload = resolve;
 
       // set async to true
       tag.async = true;
