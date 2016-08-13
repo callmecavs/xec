@@ -15,6 +15,11 @@
       xec('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
         .then(() => console.log($))
         .catch(error => console.log(error))
+
+      // test loading IIFE
+      xec('/iife.js')
+        .then(() => console.log('Promise: ' + Math.floor(Date.now() / 1000) + 's'))
+        .catch(error => console.log(error))
     </script>
   </body>
 </html>
