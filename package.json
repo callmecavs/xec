@@ -1,24 +1,26 @@
 {
   "name":        "xec",
-  "version":     "0.0.1",
-  "description": "",
-  "homepage":    "",
-  "main":        "dist/xec.min.js",
-  "jsnext:main": "src/xec.js",
+  "description": "An async script loader, for the browser, built on Promises.",
 
-  "author":  "",
-  "license": "",
+  "main":    "dist/xec.js",
+  "version": "0.0.1",
+  "license": "MIT",
 
-  "repository": {
-    "type": "git",
-    "url":  ""
-  },
-  "bugs": {
-    "url": ""
+  "repository": "callmecavs/xec",
+
+  "author": {
+    "name":  "Michael Cavalea",
+    "email": "callmecavs@gmail.com",
+    "url":   "http://callmecavs.com/"
   },
 
   "keywords": [
-
+    "async",
+    "script",
+    "loader",
+    "browser",
+    "promise",
+    "then"
   ],
 
   "devDependencies": {

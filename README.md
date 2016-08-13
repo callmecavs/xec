@@ -1,6 +1,10 @@
 # xec
 
+[![xec on NPM](https://img.shields.io/npm/v/xec.svg?style=flat-square)](https://www.npmjs.com/package/xec)
+
 An async script loader, for the browser, built on Promises.
+
+> Pronounced "exec".
 
 ## Install
 
