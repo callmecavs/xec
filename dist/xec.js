@@ -9,7 +9,7 @@
   (global.xec = factory());
 }(this, function () { 'use strict';
 
-  var xecute = function xecute(source) {
+  var xec = function xec(source) {
     return new Promise(function (resolve, reject) {
       // create the script tag
       var tag = document.createElement('script');
@@ -36,6 +36,6 @@
     });
   };
 
-  return xecute;
+  return xec;
 
 }));

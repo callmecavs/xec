@@ -1,4 +1,4 @@
-const xecute = source => new Promise((resolve, reject) => {
+const xec = source => new Promise((resolve, reject) => {
   // create the script tag
   const tag = document.createElement('script')
 
@@ -23,4 +23,4 @@ const xecute = source => new Promise((resolve, reject) => {
   document.body.appendChild(tag)
 })
 
-export default xecute
+export default xec
