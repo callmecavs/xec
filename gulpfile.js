@@ -72,7 +72,6 @@ gulp.task('js', () => {
       fs.appendFileSync(dist, files.code)
       fs.writeFileSync('dist/maps/xecute.min.js.map', files.map.toString())
     })
-    .catch(onError)
 })
 
 // server
@@ -114,13 +113,5 @@ gulp.task('watch', () => {
 
 // build and default tasks
 
-gulp.task('build', ['clean'], () => {
-  // create dist directories
-  fs.mkdirSync('dist')
-  fs.mkdirSync('dist/maps')
-
-  // run the tasks
-  gulp.start('js')
-})
-
+gulp.task('build', ['clean'], () => gulp.start('js'))
 gulp.task('default', ['build', 'server', 'watch'])
