@@ -51,7 +51,7 @@ const read = {
 const write = {
   format: 'umd',
   exports: 'default',
-  moduleName: 'Xecute',
+  moduleName: 'xecute',
   sourceMap: true
 }
 
