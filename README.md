@@ -10,7 +10,7 @@ npm i xec --save
 
 ## Usage
 
-```
+```es6
 import xec from 'xec'
 
 xec('path/to/file.js')
