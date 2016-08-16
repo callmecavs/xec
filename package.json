@@ -3,7 +3,7 @@
   "description": "An async script loader, for the browser, built on Promises.",
 
   "main":    "dist/xec.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
 
   "repository": "callmecavs/xec",

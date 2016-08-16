@@ -12,13 +12,35 @@ An async script loader, for the browser, built on Promises.
 npm i xec --save
 ```
 
-## Usage
+## API
+
+xec exposes the following API:
+
+* [one](#onesource)
+* [many](#manysources)
+
+### .one(source)
 
 ```es6
-import xec from 'xec'
+import { one } from 'xec'
 
-xec('path/to/file.js')
-  .then(() => console.log('Loaded and executed successfully!'))
+one('path/one.js')
+  .then(() => console.log('Script loaded and executed.'))
+  .catch(() => console.log('Something went wrong.'))
+```
+
+### .many(sources)
+
+```es6
+import { many } from 'xec'
+
+const sources = [
+  'path/one.js',
+  'path/two.js'
+]
+
+many(sources)
+  .then(() => console.log('All scripts loaded and executed.'))
   .catch(() => console.log('Something went wrong.'))
 ```
 

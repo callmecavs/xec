@@ -1,4 +1,4 @@
-const xec = source => new Promise((resolve, reject) => {
+const one = source => new Promise((resolve, reject) => {
   // create the script tag
   const tag = document.createElement('script')
 
@@ -16,4 +16,9 @@ const xec = source => new Promise((resolve, reject) => {
   document.body.appendChild(tag)
 })
 
-export default xec
+const many = sources => Promise.all(sources.map(source => one(source)))
+
+export default {
+  one,
+  many
+}
