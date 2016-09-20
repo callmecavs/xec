@@ -2,7 +2,10 @@
   "name":        "xec",
   "description": "An async script loader, for the browser, built on Promises.",
 
-  "main":    "dist/xec.js",
+  "main":        "dist/xec.js",
+  "module":      "dist/xec.module.js",
+  "jsnext:main": "dist/xec.module.js",
+
   "version": "0.0.2",
   "license": "MIT",
 
@@ -24,15 +27,6 @@
   ],
 
   "devDependencies": {
-    "babel-preset-es2015-rollup": "*",
-    "browser-sync":               "*",
-    "del":                        "*",
-    "gulp":                       "*",
-    "node-notifier":              "*",
-    "rollup":                     "*",
-    "rollup-plugin-babel":        "*",
-    "rollup-plugin-commonjs":     "*",
-    "rollup-plugin-node-resolve": "*",
-    "rollup-plugin-uglify":       "*"
+
   }
 }
