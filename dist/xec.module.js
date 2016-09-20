@@ -4,12 +4,6 @@
  * License: MIT
  */
 
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.xec = factory());
-}(this, (function () { 'use strict';
-
 var one = function one(source) {
   return new Promise(function (resolve, reject) {
     // create the script tag
@@ -41,6 +35,4 @@ var xec = {
   many: many
 };
 
-return xec;
-
-})));
+export default xec;

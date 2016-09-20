@@ -1,6 +1,6 @@
 // imports
 
-const json     = require('./package.json')
+const pkg      = require('./package.json')
 const sync     = require('browser-sync')
 const del      = require('del')
 const fs       = require('fs')
@@ -10,7 +10,6 @@ const rollup   = require('rollup')
 const babel    = require('rollup-plugin-babel')
 const commonjs = require('rollup-plugin-commonjs')
 const resolve  = require('rollup-plugin-node-resolve')
-const uglify   = require('rollup-plugin-uglify')
 
 // error handler
 
@@ -25,77 +24,71 @@ const onError = function(error) {
 
 // clean
 
-gulp.task('clean', () => del('dist/**/*.js', 'dist/**/*.map'))
+gulp.task('clean', () => {
+  return del(
+    'dist/**.js',
+    '!dist',
+    '!dist/index.html'
+  )
+})
 
 // attribution
 
 const attribution =
 `/*!
- * xec ${ json.version } - ${ json.description }
- * Copyright (c) ${ new Date().getFullYear() } ${ json.author.name } - https://github.com/${ json.repository }
- * License: ${ json.license }
+ * xec ${ pkg.version } - ${ pkg.description }
+ * Copyright (c) ${ new Date().getFullYear() } ${ pkg.author.name } - https://github.com/${ pkg.repository }
+ * License: ${ pkg.license }
  */
 `
 
 // js
 
-const base = {
+const read = {
   entry: 'src/xec.js',
-  sourceMap: true
+  plugins: [
+    resolve({
+      jsnext: true,
+      main: true,
+      browser: true
+    }),
+    commonjs(),
+    babel({
+      exclude: 'node_modules/**'
+    })
+  ]
 }
 
-const normal =  Object.assign(
-  {},
-  base,
-  {
-    plugins: [
-      babel({ exclude: 'node_modules/**' })
-    ]
-  }
-)
-
-const minified = Object.assign(
-  {},
-  base,
-  {
-    plugins: [
-      babel({ exclude: 'node_modules/**' }),
-      uglify()
-    ]
-  }
-)
-
 const write = {
-  format: 'umd',
-  exports: 'default',
-  moduleName: 'xec',
-  sourceMap: true
+  umd: {
+    format: 'umd',
+    exports: 'default',
+    moduleName: 'xec',
+    banner: attribution,
+    sourceMap: true
+  },
+  module: {
+    format: 'es',
+    banner: attribution
+  }
 }
 
 gulp.task('js', () => {
-  return Promise
-    .all([
-      rollup.rollup(normal),
-      rollup.rollup(minified)
-    ])
-    .then(results => {
-      const files = results.map(res => res.generate(write))
-
-      // cache path to JS dist files
-      const normal = 'dist/xec.js'
-      const minified = 'dist/xec.min.js'
-
-      // write attributions
-      fs.writeFileSync(normal, attribution)
-      fs.writeFileSync(minified, attribution)
-
-      // write the sourcemap
-      fs.writeFileSync('dist/maps/xec.js.map', files[0].map.toString())
+  return rollup
+    .rollup(read)
+    .then(bundle => {
+      // generate UMD and ES module from bundle
+      const umd = bundle.generate(write.umd)
+      const module = bundle.generate(write.module)
 
       // write JS files
-      fs.appendFileSync(normal, files[0].code)
-      fs.appendFileSync(minified, files[1].code)
+      fs.writeFileSync(pkg.main, umd.code)
+      fs.writeFileSync(pkg.module, module.code)
+
+      // write sourcemap
+      fs.writeFileSync('dist/maps/xec.js.map', umd.map.toString())
     })
+    .catch(onError)
 })
 
 // server
@@ -137,5 +130,21 @@ gulp.task('watch', () => {
 
 // build and default tasks
 
-gulp.task('build', ['clean'], () => gulp.start('js'))
+const exists = path => {
+  try {
+    return fs.statSync(path).isDirectory()
+  } catch(error) {}
+
+  return false
+}
+
+gulp.task('build', ['clean'], () => {
+  // create dist directories
+  if(!exists('dist')) fs.mkdirSync('dist')
+  if(!exists('dist/maps')) fs.mkdirSync('dist/maps')
+
+  // run the tasks
+  gulp.start('js')
+})
+
 gulp.task('default', ['build', 'server', 'watch'])
