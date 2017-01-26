@@ -1,24 +1,46 @@
-const one = source => new Promise((resolve, reject) => {
-  // create the script tag
-  const tag = document.createElement('script')
+const xec = () => {
+  // cache for loaded script sources
+  // object lookup is faster than array.includes or array.indexOf
+  const loaded = {}
 
-  // add error and load event listeners
-  tag.onerror = reject
-  tag.onload = resolve
+  // load and execute one source
+  const one = source => new Promise((resolve, reject) => {
+    // if previously loaded, resolve and exit early
+    if (loaded[source]) {
+      return resolve()
+    }
 
-  // set async to true
-  tag.async = true
+    // cache it
+    loaded[source] = true
 
-  // set the source
-  tag.src = source
+    // create the script tag
+    const tag = document.createElement('script')
 
-  // append the script tag to the DOM
-  document.body.appendChild(tag)
-})
+    // add error and load event listeners
+    tag.onerror = reject
+    tag.onload = resolve
 
-const many = sources => Promise.all(sources.map(source => one(source)))
+    // set async to true
+    tag.async = true
 
-export default {
-  one,
-  many
+    // set the source
+    tag.src = source
+
+    // append the script tag to the DOM
+    document.body.appendChild(tag)
+  })
+
+  // load and execute multiple sources
+  const many = sources => Promise.all(sources.map(source => one(source)))
+
+  return {
+    one,
+    many
+  }
 }
+
+// epxort a singleton
+
+const singleton = xec()
+
+export default singleton
