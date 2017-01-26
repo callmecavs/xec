@@ -14,7 +14,9 @@ npm i xec --save
 
 ## API
 
-xec exposes the following API:
+xec exports a singleton, and _won't load the same source twice_.
+
+It exposes the following API:
 
 * [one](#onesource)
 * [many](#manysources)
@@ -51,4 +53,4 @@ many(sources)
 
 ## License
 
-[MIT](https://opensource.org/licenses/MIT). © 2016 Michael Cavalea
+[MIT](https://opensource.org/licenses/MIT). © 2017 Michael Cavalea
