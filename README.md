@@ -21,7 +21,7 @@ xec exposes the following API:
 
 ### .one(source)
 
-```es6
+```javascript
 import { one } from 'xec'
 
 one('path/one.js')
@@ -31,7 +31,7 @@ one('path/one.js')
 
 ### .many(sources)
 
-```es6
+```javascript
 import { many } from 'xec'
 
 const sources = [
